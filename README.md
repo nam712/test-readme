@@ -68,3 +68,11 @@ Sau khi chạy, báo cáo bao phủ được tạo tại:
 ```bash
 target/site/jacoco/index.html
 ```
+
+## Kết quả đo bao phủ kiểm thử (Test Coverage)
+| Thành phần                    | Missed Instructions | Bao phủ nhánh | Phương thức bị bỏ sót | Số dòng bị bỏ sót |
+|------------------------------|------------------|----------------|------------------------|--------------------|
+| `calculateValidAverage(List)`| 100% (49/49)     | 100% (14/14)   | 0                      | 0                  |
+| `countExcellentStudents(List)`| 100% (35/35)    | 100% (12/12)   | 0                      | 0                  |
+| `StudentAnalyzer()` (constructor)| 100% (3/3)    | N/A            | 0                      | 0                  |
+| **Tổng cộng**                | **100% (87/87)** | **100% (26/26)**| **0**                  | **0**              |
