@@ -62,6 +62,9 @@ Dự án sử dụng plugin **JaCoCo** để đo tỷ lệ bao phủ kiểm th�
 Chạy lệnh sau trong thư mục dự án:
 
 ```bash
-mvn clean test
+mvn clean verify
 ```
 Sau khi chạy, báo cáo bao phủ được tạo tại:
+```bash
+target/site/jacoco/index.html
+```
