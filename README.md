@@ -1,79 +1,77 @@
-# Student Analyzer - Unit Testing with JUnit
+# Appium Assignment - MSSV: BIT220114
 
-## Mô tả bài tập
+## Ứng dụng được chọn
 
-Viết chương trình Java để phân tích điểm số học sinh, gồm:
+- **Tên ứng dụng:** Microsoft OneNote  
+- **Danh mục con:** Ứng dụng quản lý học tập hoặc ghi chú học thuật
+- **Lý do chọn:** Ứng dụng phổ biến, được sử dụng rộng rãi trong học tập và quản lý ghi chú. Phù hợp để kiểm thử các tính năng ghi chú và tìm kiếm.
 
-- Đếm số học sinh đạt loại Giỏi (điểm >= 8.0), bỏ qua các điểm số không hợp lệ (nhỏ hơn 0 hoặc lớn hơn 10).
-- Tính điểm trung bình của các điểm hợp lệ (từ 0 đến 10).
+## Test Cases
 
-## Cấu trúc dự án
+### **Test Case 1: Tạo ghi chú mới**
 
-```
-student-analyzer
- ├── src
- │    ├── main
- │    │    └── java
- │    │         └── com/mycompany/student/analyzer/
- │    │              └── Main.java
- │    │              └── StudentAnalyzer.java
- │    └─── test
- │         └── java
- │              └── com/mycompany/student/analyzer/
- │                   └── StudentAnalyzerTest.java
- ├── README.md
- └── pom.xml
-```
+- **Mô tả:** Tạo một ghi chú mới, nhập nội dung `"hello appium"` vào ghi chú.
+- **Kết quả mong đợi:** Ghi chú được tạo và nội dung hiển thị chính xác.
+- **Kết quả thực tế:** Passed
 
-## Hướng dẫn chạy và kiểm thử
+### **Test Case 2: Chỉnh sửa ghi chú**
 
-### Yêu cầu
+- **Mô tả:** Mở ghi chú vừa tạo, thêm 2 mục To-Do có nội dung `"check"` và `"done"`.
+- **Kết quả mong đợi:** Các mục To-Do được thêm và hiển thị đúng.
+- **Kết quả thực tế:** Passed 
 
-- JDK 8 trở lên
-- Maven 3.x
-- IDE (NetBeans, IntelliJ IDEA, Eclipse...) hoặc dòng lệnh
+### **Test Case 3: Xoá ghi chú**
 
-### Cách chạy chương trình
+- **Mô tả:** Xoá ghi chú vừa tao bằng cách vào menu More Options → Delete.
+- **Kết quả mong đợi:** Ghi chú biến mất khỏi danh sách.
+- **Kết quả thực tế:** Passed 
 
-1. Chuột phải vào thư mục gốc dự án, nhấn vào Open in Terminal.
-2. Biên dịch:
 
-   ```bash
-   mvn compile
-   ```
+## Hướng Dẫn Cài Đặt Môi Trường Kiểm Thử Ứng Dụng Microsoft Onenote
 
-3. Chạy chương trình chính:
+### Giới Thiệu
+Hướng dẫn này sẽ giúp bạn cài đặt môi trường để kiểm thử ứng dụng Onenote trên thiết bị ảo Android bằng Appium.
 
-   ```bash
-   mvn exec:java --% -Dexec.mainClass=com.mycompany.student.analyzer.Main
-   ```
+### Yêu Cầu 
+- Java Development Kit (JDK)
+- Node.js
+- Python 3.8+
 
-Hoặc chạy trực tiếp trong IDE bằng nút run.
+### Cài đặt 
 
-### Cách chạy test
-
+1. Appium Server
+Mở terminal và chạy lệnh sau để cài đặt Appium Server:
 ```bash
-mvn test
+npm install -g appium
 ```
+2. Android Studio
+Tải và cài đặt Android Studio.
 
-## Đo Bao Phủ Kiểm Thử (Code Coverage)
-Dự án sử dụng plugin **JaCoCo** để đo tỷ lệ bao phủ kiểm thử.
-### Cách đo
-Chạy lệnh sau trong thư mục dự án:
-
+3. Cài đặt các thư viện cần thiết:
 ```bash
-mvn clean verify
+pip install Appium-Python-Client pytest
 ```
-Sau khi chạy xong, mở file sau để xem báo cáo chi tiết:
+
+4. Tải Microsoft OneNote 
+
+## Cách chạy chương trình
+
+1. Chạy Appium Server
+Mở terminal và chạy lệnh sau:
 ```bash
-target/site/jacoco/index.html
+appium
+```
+2. Chạy Kiểm Thử
+```bash
+pytest tests/test.py
 ```
 
-## Kết quả đo độ bao phủ kiểm thử (Code Coverage)
+## Video chạy kiểm thử
+[Xem video](./videos/demo_appium.mp4)
 
-| Element                          | Missed Instructions | Cov.  | Missed Branches | Cov.  | Missed | Cxty | Missed | Lines | Missed | Methods |
-|----------------------------------|----------------------|-------|------------------|-------|--------|------|---------|--------|---------|----------|
-| calculateValidAverage(List)      | 0 of 49              | 100%  | 0 of 14          | 100%  | 0      | 8    | 0       | 9      | 0       | 1        |
-| countExcellentStudents(List)     | 0 of 35              | 100%  | 0 of 12          | 100%  | 0      | 7    | 0       | 7      | 0       | 1        |
-| StudentAnalyzer()                | 0 of 3               | 100%  | n/a              | n/a   | 0      | 1    | 0       | 1      | 0       | 1        |
-| **Total**                        | **0 of 87**          | **100%** | **0 of 26**     | **100%** | **0**  | **16** | **0**   | **17** | **0**   | **3**      |
+## Hình ảnh kiểm thử 
+<p align="center">
+  <img src="screenshots/test1.png" alt="Test Case 1" width="250"/>
+  <img src="screenshots/test2.png" alt="Test Case 2" width="250"/>
+  <img src="screenshots/test3.png" alt="Test Case 3" width="250"/>
+</p>
