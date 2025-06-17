@@ -1,77 +1,89 @@
-# Appium Assignment - MSSV: BIT220114
+# Báo cáo SonarQube - Quản lý sản phẩm
 
-## Ứng dụng được chọn
+## 1. Mô tả
+Ứng dụng Java đơn giản dùng để quản lý sản phẩm, bao gồm các chức năng:
+- Thêm sản phẩm
+- Tìm kiếm sản phẩm
+- Xóa sản phẩm
 
-- **Tên ứng dụng:** Microsoft OneNote  
-- **Danh mục con:** Ứng dụng quản lý học tập hoặc ghi chú học thuật
-- **Lý do chọn:** Ứng dụng phổ biến, được sử dụng rộng rãi trong học tập và quản lý ghi chú. Phù hợp để kiểm thử các tính năng ghi chú và tìm kiếm.
+## 2. Công nghệ sử dụng
 
-## Test Cases
+### 2.1. Ngôn ngữ và công cụ phát triển
+- **Ngôn ngữ lập trình:** Java 
+- **Trình quản lý dự án:** Apache Maven 3.9.6
+- **Trình biên dịch:** Maven Compiler Plugin (target: Java 17)
+- **Môi trường phát triển:** Visual Studio Code
 
-### **Test Case 1: Tạo ghi chú mới**
+### 2.2. Công cụ kiểm thử tĩnh
+- **SonarQube:** Community Edition, chạy local trên trình duyệt Google Chrome tại địa chỉ `http://localhost:9000`
+- **SonarScanner CLI:** Phiên bản 7.1.0.4889 (Windows x64)
 
-- **Mô tả:** Tạo một ghi chú mới, nhập nội dung `"hello appium"` vào ghi chú.
-- **Kết quả mong đợi:** Ghi chú được tạo và nội dung hiển thị chính xác.
-- **Kết quả thực tế:** Passed
-
-### **Test Case 2: Chỉnh sửa ghi chú**
-
-- **Mô tả:** Mở ghi chú vừa tạo, thêm 2 mục To-Do có nội dung `"check"` và `"done"`.
-- **Kết quả mong đợi:** Các mục To-Do được thêm và hiển thị đúng.
-- **Kết quả thực tế:** Passed 
-
-### **Test Case 3: Xoá ghi chú**
-
-- **Mô tả:** Xoá ghi chú vừa tao bằng cách vào menu More Options → Delete.
-- **Kết quả mong đợi:** Ghi chú biến mất khỏi danh sách.
-- **Kết quả thực tế:** Passed 
+#### Cấu hình và xác thực
+- **Tài khoản mặc định SonarQube:** `admin` / `admin`
+- **User Token:** Tạo thủ công tại trang `http://localhost:9000/account/security` sau khi đăng nhập.
+- **Tập tin cấu hình:** `sonar-project.properties` được tạo trong thư mục gốc của dự án để cấu hình kết nối giữa SonarScanner và SonarQube server.
 
 
-## Hướng Dẫn Cài Đặt Môi Trường Kiểm Thử Ứng Dụng Microsoft Onenote
+## 3. Phân tích ban đầu với SonarQube
 
-### Giới Thiệu
-Hướng dẫn này sẽ giúp bạn cài đặt môi trường để kiểm thử ứng dụng Onenote trên thiết bị ảo Android bằng Appium.
+### 3.1 Hướng dẫn chạy ứng dụng
+1.  Biên dịch dự án
+   ```bash
+   mvn clean compile
+   ```
+2. Chạy phân tích với SonarScanner:
+    ```bash
+    sonar-scanner
+    ```
+3. Xem kết quả tại địa chỉ:
+    ```bash
+    http://localhost:9000/dashboard?id=product-management
+    ```
+### 3.2  Kết quả phân tích ban đầu
+SonarQube đã phát hiện một số vấn đề về khả năng bảo trì và cấu trúc mã:
+| Đánh giá       | Giá trị                             |
+|----------------|-----------------------------------|
+| Security       | 0        |
+| Reliability    | 0        |
+| Maintainability| 4        | 
+| Coverage| 0.0%        |
+| Duplications| 0.0%        |
+| Security Hotspots| 0       |
 
-### Yêu Cầu 
-- Java Development Kit (JDK)
-- Node.js
-- Python 3.8+
+Dự án chưa tích hợp kiểm thử đơn vị nên độ phủ mã (coverage) là 0%.
 
-### Cài đặt 
+### 3.3 Các vấn đề được phát hiện
+| Loại          | Mô tả                                       | Dòng | Gợi ý sửa                         |
+|---------------|---------------------------------------------|------|-----------------------------------|
+| Code Smell    | Sử dụng System.out.println thay vì Logger   | 17   | Kiểm tra null trước khi so sánh   |
+| Code Smell    | Duplicated String Literal                   | 9    | Định nghĩa chuỗi đó thành một constant (private static final String) để tái sử dụng.     |
+| Code Smell    | Không dùng break sau khi xóa              | 23   | Thêm break để tối ưu vòng lặp   |
 
-1. Appium Server
-Mở terminal và chạy lệnh sau để cài đặt Appium Server:
+## 4. Cải thiện mã nguồn
+### 4.1 Mã đã cải thiện - Main.java
+- Dùng Logger thay cho System.out.println
+- sử dụng thêm logger.isLoggable(Level.INFO) để đảm bảo phương thức findProduct() không bị gọi khi mức độ log chưa được kích hoạt
+-  Định nghĩa chuỗi "Tablet" thành một constant (private static final String) để tái sử dụng.
+
+### 4.2 Mã đã cải thiện - ProductManager.java
+- Dùng Logger thay cho System.out.println
+- Tối ưu vòng lặp bằng break
+
+### 4.3 Chay lại ứng dụng
 ```bash
-npm install -g appium
-```
-2. Android Studio
-Tải và cài đặt Android Studio.
-
-3. Cài đặt các thư viện cần thiết:
-```bash
-pip install Appium-Python-Client pytest
+mvn clean compile
+sonar-scanner
 ```
 
-4. Tải Microsoft OneNote 
+###  4.3 Kết quả sau cải thiện
+| Đánh giá       |  Trước cải thiện                             |Sau cải thiện
+|----------------|-----------------------------------|------------------------------|
+| Security       | 0        |0|
+| Reliability    | 0        |0|
+| Maintainability| 4        | 0|
+| Coverage| 0.0%        |0.0%|
+| Duplications| 0.0%        |0.0%|
+| Security Hotspots| 0       |0|
 
-## Cách chạy chương trình
-
-1. Chạy Appium Server
-Mở terminal và chạy lệnh sau:
-```bash
-appium
-```
-2. Chạy Kiểm Thử
-```bash
-pytest tests/test.py
-```
-
-## Video chạy kiểm thử
-[Xem video](./videos/demo_appium.mp4)
-
-## Hình ảnh kiểm thử 
-<p align="center">
-  <img src="screenshots/test1.png" alt="Test Case 1" width="250"/>
-  <img src="screenshots/test2.png" alt="Test Case 2" width="250"/>
-  <img src="screenshots/test3.png" alt="Test Case 3" width="250"/>
-</p>
+## Đánh giá 
+SonarQube giúp phát hiện sớm các lỗi tiềm ẩn, code smell và vi phạm quy ước lập trình ngay trong quá trình phát triển. Nhờ đó, chất lượng mã nguồn được cải thiện, giảm thiểu lỗi khi triển khai, và tiết kiệm thời gian bảo trì về sau. Đây là công cụ hữu ích giúp lập trình viên viết code rõ ràng, dễ hiểu và dễ mở rộng.
