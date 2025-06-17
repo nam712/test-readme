@@ -27,7 +27,7 @@
 ## 3. Phân tích ban đầu với SonarQube
 
 ### 3.1 Hướng dẫn chạy ứng dụng
-1.  Biên dịch dự án
+1. Biên dịch dự án
    ```bash
    mvn clean compile
    ```
@@ -53,11 +53,11 @@ SonarQube đã phát hiện một số vấn đề về khả năng bảo trì v
 Dự án chưa tích hợp kiểm thử đơn vị nên độ phủ mã (coverage) là 0%.
 
 ### 3.3 Các vấn đề được phát hiện
-| Loại          | Mô tả                                       | Dòng | Gợi ý sửa                         |
-|---------------|---------------------------------------------|------|-----------------------------------|
-| Code Smell    | Sử dụng System.out.println thay vì Logger   | 17   | Kiểm tra null trước khi so sánh   |
-| Code Smell    | Duplicated String Literal                   | 9    | Định nghĩa chuỗi đó thành một constant (private static final String) để tái sử dụng.     |
-| Code Smell    | Không dùng break sau khi xóa              | 23   | Thêm break để tối ưu vòng lặp   |
+| Loại          | Mô tả                                       | Gợi ý sửa                         |
+|---------------|---------------------------------------------|-----------------------------------|
+| Code Smell    | Sử dụng System.out.println thay vì Logger   | Kiểm tra null trước khi so sánh   |
+| Code Smell    | Duplicated String Literal                   | Định nghĩa chuỗi đó thành một constant (private static final String) để tái sử dụng.     |
+| Code Smell    | Không dùng break sau khi xóa              |  Thêm break để tối ưu vòng lặp   |
 
 ## 4. Cải thiện mã nguồn
 ### 4.1 Mã đã cải thiện - Main.java
