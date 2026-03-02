@@ -6,23 +6,39 @@ Tai lieu nay liet ke **tat ca file cau hinh**, **tung dong can doi**, va huong d
 
 ## Muc Luc
 
-- [1. So Do Database — Bang Nao o Database Nao](#1-so-do-database)
-- [2. Cau Hinh Tung Service (appsettings.json)](#2-cau-hinh-tung-service)
-  - [2.1 API Gateway](#21-api-gateway)
-  - [2.2 Auth Service](#22-auth-service)
-  - [2.3 Manga Service](#23-manga-service)
-  - [2.4 Comment Service](#24-comment-service)
-  - [2.5 User Service](#25-user-service)
-  - [2.6 Admin Service](#26-admin-service)
-  - [2.7 Notification Service](#27-notification-service)
-  - [2.8 Background Worker](#28-background-worker)
-  - [2.9 Frontend (Next.js)](#29-frontend-nextjs)
-- [3. Chay Bang Docker Compose](#3-chay-bang-docker-compose)
-  - [3.1 Chay Toan Bo](#31-chay-toan-bo)
-  - [3.2 Chi Chay Infrastructure](#32-chi-chay-infrastructure-de-backend-local)
-- [4. Chay Local Tren Windows (Khong Docker)](#4-chay-local-tren-windows-khong-docker)
-- [5. Cau Hinh Storage (Local / MinIO / S3)](#5-cau-hinh-storage-local--minio--s3)
-- [6. Quy Tac Quan Trong](#6-quy-tac-quan-trong)
+- [Komorebi - Huong Dan Cau Hinh Chi Tiet](#komorebi---huong-dan-cau-hinh-chi-tiet)
+  - [Muc Luc](#muc-luc)
+  - [1. So Do Database](#1-so-do-database)
+    - [Tao Database](#tao-database)
+  - [2. Cau Hinh Tung Service](#2-cau-hinh-tung-service)
+    - [2.1 API Gateway](#21-api-gateway)
+    - [2.2 Auth Service](#22-auth-service)
+    - [2.3 Manga Service](#23-manga-service)
+    - [2.4 Comment Service](#24-comment-service)
+    - [2.5 User Service](#25-user-service)
+    - [2.6 Admin Service](#26-admin-service)
+    - [2.7 Notification Service](#27-notification-service)
+    - [2.8 Background Worker](#28-background-worker)
+    - [2.9 Frontend (Next.js)](#29-frontend-nextjs)
+  - [3. Chay Bang Docker Compose](#3-chay-bang-docker-compose)
+    - [3.1 Chay Toan Bo](#31-chay-toan-bo)
+    - [3.2 Chi Chay Infrastructure (de backend local)](#32-chi-chay-infrastructure-de-backend-local)
+  - [4. Chay Local Tren Windows (Khong Docker)](#4-chay-local-tren-windows-khong-docker)
+    - [4.1 Yeu Cau Bat Buoc](#41-yeu-cau-bat-buoc)
+    - [4.2 Cai Dat](#42-cai-dat)
+    - [4.3 Tao Database](#43-tao-database)
+    - [4.4 Cau Hinh](#44-cau-hinh)
+    - [4.5 Chay](#45-chay)
+  - [5. Cau Hinh Storage (Local / MinIO / S3)](#5-cau-hinh-storage-local--minio--s3)
+    - [5.1 Local Storage (mac dinh — khong can MinIO/S3)](#51-local-storage-mac-dinh--khong-can-minios3)
+    - [5.2 MinIO](#52-minio)
+    - [5.3 AWS S3 / Cloudflare R2](#53-aws-s3--cloudflare-r2)
+    - [5.4 Bang Tom Tat Storage](#54-bang-tom-tat-storage)
+  - [6. Quy Tac Quan Trong](#6-quy-tac-quan-trong)
+    - [JWT Secret phai giong nhau](#jwt-secret-phai-giong-nhau)
+    - [PostgreSQL password phai nhat quan](#postgresql-password-phai-nhat-quan)
+    - [Service nao dung gi](#service-nao-dung-gi)
+    - [Tat Redis / RabbitMQ?](#tat-redis--rabbitmq)
 
 ---
 
@@ -82,7 +98,10 @@ Chay 1 lenh duy nhat:
 ```bash
 psql -U postgres -f webtruyendb.sql
 ```
-
+```bash
+"C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -f webtruyendb.sql
+& "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -f webtruyendb.sql
+```
 File SQL se tu dong tao 5 databases va toan bo 23 bang.
 
 ---
@@ -251,6 +270,9 @@ File SQL se tu dong tao 5 databases va toan bo 23 bang.
 | ---- | ---------------------------------- | ------------------------------------------------- | --------------------- |
 | 3    | `ConnectionStrings:MangaDb`        | `...Database=komorebi_manga;...Password=postgres` | **Co** — doi Password |
 | 4    | `ConnectionStrings:UserDb`         | `...Database=komorebi_user;...Password=postgres`  | **Co** — doi Password |
+| 7    | `RabbitMQ:Host`                    | `localhost`                                       |                       |
+| 8    | `RabbitMQ:User`                    | `guest`                                           |                       |
+| 9    | `RabbitMQ:Pass`                    | `guest`                                           |                       |
 
 ---
 
